@@ -1,0 +1,53 @@
+# Experimento: Comparación de Embeddings
+# ========================================
+# Objetivo: Evaluar diferentes tipos de embeddings
+
+experiment_name: "embeddings_comparison"
+description: "Compara Word2Vec, Doc2Vec, BERT y spaCy"
+
+data:
+  text_column: "body"
+  sample_size: 5000  # Muestra para ser más rápido
+
+preprocessing:
+  enabled: true
+  min_length: 100  # Textos más largos para mejor calidad
+
+embeddings:
+  enabled: true
+  
+  word2vec:
+    enabled: true
+    vector_size: 150  # Mayor dimensionalidad
+    window: 7
+    min_count: 3
+    epochs: 15
+  
+  doc2vec:
+    enabled: true
+    vector_size: 150
+    min_count: 3
+    epochs: 50  # Más epochs para mejor entrenamiento
+  
+  bert:
+    enabled: true  # Activado para este experimento
+    model_name: "distiluse-base-multilingual-cased-v2"
+    max_texts: 5000
+  
+  spacy:
+    enabled: true
+    model_name: "es_core_news_md"
+    max_texts: 5000
+
+topic_modeling:
+  enabled: false
+
+networks:
+  enabled: false
+
+visualization:
+  enabled: true
+  save_figures: true
+
+output:
+  dir: "experiments/embeddings_comparison"

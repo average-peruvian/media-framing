@@ -6,7 +6,7 @@ import re
 import pandas as pd
 
 class TextPreprocessor:
-    def __init__(self, custom_stopwords: list):
+    def __init__(self, custom_stopwords = None):
         self.stopwords = self.__load_stopwords()
         if custom_stopwords:
             self.stopwords.update(custom_stopwords)
@@ -42,6 +42,3 @@ class TextPreprocessor:
         df['tokens'] = df['texto_limpio'].apply(self.tokenize)
         df['texto_procesado'] = df['tokens'].apply(lambda x: ' '.join(x))
         return df
-
-
-        

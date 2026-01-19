@@ -1,0 +1,79 @@
+# Configuración por defecto para análisis de conflictos socioambientales
+# =======================================================================
+
+# Datos
+data:
+  text_column: "body"  # Columna con el texto
+  sample_size: null    # null = procesar todo, número = tomar muestra
+
+# Preprocesamiento
+preprocessing:
+  enabled: true
+  text_column: "body"
+  min_length: 50      # Longitud mínima de texto
+  custom_stopwords: []  # Stopwords adicionales
+
+# Embeddings
+embeddings:
+  enabled: true
+  
+  word2vec:
+    enabled: true
+    vector_size: 100
+    window: 5
+    min_count: 2
+    epochs: 10
+  
+  doc2vec:
+    enabled: true
+    vector_size: 100
+    min_count: 2
+    epochs: 40
+  
+  bert:
+    enabled: false  # Lento, activar solo si es necesario
+    model_name: "distiluse-base-multilingual-cased-v2"
+    max_texts: 1000  # Limitar cantidad
+  
+  spacy:
+    enabled: true
+    model_name: "es_core_news_md"
+    max_texts: 1000
+
+# Topic Modeling
+topic_modeling:
+  enabled: true
+  n_topics: 10
+  methods: ["lda", "nmf", "lsa"]  # Métodos a usar
+  
+  lda:
+    max_features: 1000
+    max_df: 0.8
+    min_df: 5
+    ngram_range: [1, 2]
+  
+  nmf:
+    max_features: 1000
+    max_df: 0.8
+    min_df: 5
+  
+  lsa:
+    max_features: 1000
+
+# Análisis de Redes
+networks:
+  enabled: true
+  threshold: 5  # Umbral de co-ocurrencia
+
+# Visualización
+visualization:
+  enabled: true
+  save_figures: true
+  format: "png"  # png, pdf, svg
+  dpi: 300
+
+# Outputs
+output:
+  dir: "experiments"
+  save_models: true
+  save_embeddings: true
