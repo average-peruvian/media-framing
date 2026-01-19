@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .temp/
 *.xlsx
+experiments/
 
 # C extensions
 *.so

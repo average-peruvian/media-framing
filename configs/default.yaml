@@ -31,7 +31,7 @@ embeddings:
     epochs: 40
   
   bert:
-    enabled: false  # Lento, activar solo si es necesario
+    enabled: true
     model_name: "distiluse-base-multilingual-cased-v2"
     max_texts: 1000  # Limitar cantidad
   
