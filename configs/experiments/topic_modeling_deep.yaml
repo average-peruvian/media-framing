@@ -1,0 +1,49 @@
+# Experimento: Topic Modeling Exhaustivo
+# ========================================
+# Objetivo: Identificar agendas temáticas con diferentes métodos
+
+experiment_name: "topic_modeling_deep"
+description: "Topic modeling con múltiples configuraciones"
+
+data:
+  text_column: "body"
+  sample_size: null  # Usar todos los datos
+
+preprocessing:
+  enabled: true
+  min_length: 80
+
+embeddings:
+  enabled: false  # Solo topic modeling
+
+extraction:
+  enabled: true  # Para correlacionar con topics
+
+topic_modeling:
+  enabled: true
+  n_topics: 15  # Más topics para granularidad
+  methods: ["lda", "nmf", "lsa"]
+  
+  lda:
+    max_features: 2000  # Mayor vocabulario
+    max_df: 0.85
+    min_df: 3
+    ngram_range: [1, 3]  # Incluir trigramas
+  
+  nmf:
+    max_features: 2000
+    max_df: 0.85
+    min_df: 3
+  
+  lsa:
+    max_features: 2000
+
+networks:
+  enabled: false
+
+visualization:
+  enabled: true
+  save_figures: true
+
+output:
+  dir: "experiments/topic_modeling_deep"

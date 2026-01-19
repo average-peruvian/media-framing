@@ -1,0 +1,64 @@
+# Configuración para Optimización de Hiperparámetros
+# ===================================================
+# Usa Optuna para encontrar los mejores hiperparámetros
+
+optimization:
+  enabled: true
+  n_trials: 50  # Número de pruebas
+  
+  # Espacio de búsqueda para embeddings
+  embeddings:
+    word2vec:
+      vector_size: [50, 100, 150, 200]
+      window: [3, 5, 7, 10]
+      min_count: [1, 2, 3, 5]
+      epochs: [5, 10, 15, 20]
+    
+    doc2vec:
+      vector_size: [50, 100, 150, 200]
+      min_count: [1, 2, 3, 5]
+      epochs: [20, 30, 40, 50]
+  
+  # Espacio de búsqueda para topic modeling
+  topic_modeling:
+    n_topics: [5, 8, 10, 12, 15, 20]
+    max_features: [500, 1000, 1500, 2000]
+    max_df: [0.5, 0.6, 0.7, 0.8, 0.9]
+    min_df: [2, 3, 5, 8, 10]
+  
+  # Métrica a optimizar
+  metric: "coherence"  # coherence, perplexity, silhouette
+
+# Datos para optimización (usar muestra pequeña)
+data:
+  text_column: "body"
+  sample_size: 2000
+
+preprocessing:
+  enabled: true
+  min_length: 50
+
+# Configuración base (se sobrescribe durante optimización)
+embeddings:
+  enabled: true
+  word2vec:
+    enabled: true
+  doc2vec:
+    enabled: false
+  bert:
+    enabled: false
+  spacy:
+    enabled: false
+
+topic_modeling:
+  enabled: true
+  methods: ["lda"]
+
+networks:
+  enabled: false
+
+visualization:
+  enabled: false
+
+output:
+  dir: "experiments/hyperparameter_optimization"
