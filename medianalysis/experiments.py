@@ -64,7 +64,6 @@ class ExperimentRunner:
             embeddings_results = self._run_embeddings(df)
             self.results['embeddings'] = embeddings_results
         
-<<<<<<< HEAD
             for emb_type, vectors in embeddings_results.items():
                 if vectors is not None and isinstance(vectors, np.ndarray):
                     if len(vectors) == len(df):  # Verificar que coincidan
@@ -75,21 +74,16 @@ class ExperimentRunner:
                         df = pd.concat([df.reset_index(drop=True), emb_df], axis=1)
                         logger.info(f"  Embeddings {emb_type} añadidos al DataFrame: {vectors.shape}")
 
-=======
->>>>>>> main
         # Topic modeling
         if self.config.get('topic_modeling.enabled', True):
             topic_results = self._run_topic_modeling(df)
             self.results['topic_modeling'] = topic_results
-<<<<<<< HEAD
 
             for model_name, model_data in topic_results.items():
                 topic_assignments = model_data['topics'].argmax(axis=1)
                 topic_probs = model_data['topics'].max(axis=1)
                 df[f'topic_{model_name}'] = topic_assignments
                 df[f'topic_{model_name}_prob'] = topic_probs
-=======
->>>>>>> main
         
         # Redes
         if self.config.get('networks.enabled', True):
@@ -273,7 +267,6 @@ class ExperimentRunner:
         with open(config_file, 'w', encoding='utf-8') as f:
             yaml.dump(self.config.config, f, allow_unicode=True)
         
-<<<<<<< HEAD
         # GUARDAR EMBEDDINGS
         if 'embeddings' in self.results:
             embeddings_dir = exp_dir / 'embeddings'
@@ -362,14 +355,11 @@ class ExperimentRunner:
             
             logger.info(f"  ✓ Red guardada: {graph.number_of_nodes()} nodos, {graph.number_of_edges()} aristas")
 
-=======
->>>>>>> main
         # Resumen JSON
         summary = {
             'experiment_id': self.experiment_id,
             'timestamp': datetime.now().isoformat(),
             'n_documents': len(df),
-<<<<<<< HEAD
             'modules_executed': list(self.results.keys()),
             'embeddings': {},
             'topics': {},
@@ -399,16 +389,10 @@ class ExperimentRunner:
             stats = self.results['networks'].get('stats', {})
             summary['network'] = stats
         
-=======
-            'modules_executed': list(self.results.keys())
-        }
-        
->>>>>>> main
         summary_file = exp_dir / 'summary.json'
         with open(summary_file, 'w', encoding='utf-8') as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
         
-<<<<<<< HEAD
         logger.info(f"\n{'='*80}")
         logger.info(f"EXPERIMENTO GUARDADO: {exp_dir}")
         logger.info(f"{'='*80}")
@@ -424,9 +408,6 @@ class ExperimentRunner:
             logger.info(f"  • networks/metrics.json - Métricas de centralidad")
         logger.info(f"  • summary.json - Resumen estadístico")
         logger.info(f"{'='*80}")
-=======
-        logger.info(f"Experimento guardado en: {exp_dir}")
->>>>>>> main
 
 
 class HyperparameterOptimizer:

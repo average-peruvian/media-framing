@@ -7,11 +7,8 @@ import sys
 from pathlib import Path
 import pandas as pd
 import json
-<<<<<<< HEAD
 import networkx as nx
 import numpy as np
-=======
->>>>>>> main
 
 # Añadir directorio padre al path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -22,7 +19,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-<<<<<<< HEAD
 def load_embeddings(exp_dir: Path) -> dict:
     embeddings = {}
     embeddings_dir = exp_dir / 'embeddings'
@@ -70,8 +66,6 @@ def load_network(exp_dir: Path):
     except Exception as e:
         logger.error(f"Error cargando red: {e}")
         return None
-=======
->>>>>>> main
 
 def main():
     parser = argparse.ArgumentParser(description='Generar visualizaciones de resultados')
@@ -81,13 +75,8 @@ def main():
                        help='Formato de salida')
     parser.add_argument('--dpi', '-d', type=int, default=300,
                        help='DPI para gráficos')
-<<<<<<< HEAD
     parser.add_argument('--skip-embeddings', action='store_true',
                        help='Saltar visualización de embeddings (puede ser lento)')
-=======
-    parser.add_argument('--style', '-s', default='seaborn',
-                       help='Estilo de matplotlib')
->>>>>>> main
     
     args = parser.parse_args()
     
@@ -97,17 +86,12 @@ def main():
     output_dir = Path(args.output_dir) if args.output_dir else exp_dir / 'visualizations'
     output_dir.mkdir(exist_ok=True)
     
-<<<<<<< HEAD
     logger.info("="*80)
     logger.info(f"GENERANDO VISUALIZACIONES")
     logger.info("="*80)
     logger.info(f"Experimento: {exp_dir}")
     logger.info(f"Output: {output_dir}")
     logger.info("="*80)
-=======
-    logger.info(f"Generando visualizaciones para: {exp_dir}")
-    logger.info(f"Output: {output_dir}")
->>>>>>> main
     
     # Cargar datos
     results_file = exp_dir / 'resultados.xlsx'
@@ -119,7 +103,6 @@ def main():
     logger.info(f"Datos cargados: {len(df)} registros")
     
     # Crear visualizador
-<<<<<<< HEAD
     viz = Visualizer()
     
     logger.info("\n" + "="*80)
@@ -298,76 +281,6 @@ def main():
     for viz_file in sorted(output_dir.glob(f'*.{args.format}')):
         logger.info(f"  • {viz_file.name}")
     
-=======
-    viz = Visualizer(style=args.style)
-    
-    # Identificar columnas
-    actor_cols = [col for col in df.columns if col.startswith('actor_')]
-    arg_cols = [col for col in df.columns if col.startswith('arg_')]
-    frame_cols = [col for col in df.columns if col.startswith('frame_')]
-    
-    logger.info(f"Columnas encontradas: {len(actor_cols)} actores, "
-               f"{len(arg_cols)} argumentos, {len(frame_cols)} frames")
-    
-    # Generar visualizaciones
-    # Matriz de correlación
-    if actor_cols and arg_cols:
-        logger.info("Generando matriz de correlación...")
-        corr_cols = actor_cols + arg_cols + frame_cols
-        fig = viz.plot_correlation_matrix(
-            df, corr_cols,
-            save_path = output_dir / f'correlacion.{args.format}'
-        )
-    
-    # Dashboard
-    if actor_cols and arg_cols and frame_cols:
-        logger.info("Generando dashboard...")
-        fig = viz.create_dashboard(
-            df, actor_cols, arg_cols, frame_cols,
-            save_path = output_dir / f'dashboard.{args.format}'
-        )
-    
-    # Topics (si existen)
-    summary_file = exp_dir / 'summary.json'
-    if summary_file.exists():
-        with open(summary_file, 'r') as f:
-            summary = json.load(f)
-        
-        if 'topic_modeling' in summary.get('modules_executed', []):
-            logger.info("Intentando generar visualizaciones de topics...")
-    
-    # Embeddings t-SNE
-    embedding_cols = [col for col in df.columns if any(
-        prefix in col for prefix in ['w2v_', 'd2v_', 'spacy_', 'bert_']
-    )]
-    
-    if embedding_cols:
-        logger.info("Generando visualización t-SNE de embeddings...")
-        # Tomar una muestra si hay muchos datos
-        sample_size = min(1000, len(df))
-        df_sample = df.sample(n=sample_size, random_state=42)
-        
-        # Obtener topic dominante si existe
-        topic_cols = [col for col in df.columns if col.startswith('topic_')]
-        labels = None
-        if topic_cols:
-            labels = df_sample[topic_cols[0]].astype(str).tolist()
-        
-        # Probar con diferentes embeddings
-        for prefix in ['w2v_', 'd2v_', 'spacy_', 'bert_']:
-            cols = [col for col in embedding_cols if col.startswith(prefix)]
-            if cols:
-                logger.info(f"  Visualizando {prefix[:-1]} embeddings...")
-                embeddings = df_sample[cols].values
-                fig = viz.plot_embeddings_tsne(
-                    embeddings, labels=labels,
-                    save_path=output_dir / f'tsne_{prefix[:-1]}.{args.format}'
-                )
-    
-    logger.info("="*80)
-    logger.info("VISUALIZACIONES COMPLETADAS")
-    logger.info(f"Gráficos guardados en: {output_dir}")
->>>>>>> main
     logger.info("="*80)
 
 
