@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 nltk.download('punkt')
 
-from .distrib import BaseWorker
+from ..distrib import BaseWorker
 
 class scraper:
     def __init__(self, url, timeout, user_agent = None):

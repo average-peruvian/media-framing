@@ -9,7 +9,7 @@ from pathlib import Path
 # Añadir directorio padre al path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from medianalysis.experiments import ExperimentConfig, ExperimentRunner, HyperparameterOptimizer
+from medianalysis.deprecated.experiments import ExperimentConfig, ExperimentRunner, HyperparameterOptimizer
 from medianalysis.utils import setup_logging
 
 def main():
@@ -45,7 +45,7 @@ def main():
         df = pd.read_excel(args.data_path)
         
         # Preprocesar
-        from medianalysis.preprocessing import TextPreprocessor
+        from medianalysis.nlp.preprocessing import TextPreprocessor
         preprocessor = TextPreprocessor()
         df = preprocessor.process_df(df)
         
