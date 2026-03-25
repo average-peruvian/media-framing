@@ -109,7 +109,7 @@ class ExperimentRunner:
         return df
     
     def _run_preprocessing(self, df: pd.DataFrame):
-        from ..nlp.preprocessing import TextPreprocessor
+        from ..preprocessing import TextPreprocessor
         
         logger.info("Ejecutando preprocesamiento...")
         config = self.config.get_preprocessing_config()
@@ -130,7 +130,7 @@ class ExperimentRunner:
     
     def _run_embeddings(self, df: pd.DataFrame):
         """Ejecuta generación de embeddings"""
-        from ..embeddings import Embeddings, SpacyEmbeddings
+        from .embeddings import Embeddings, SpacyEmbeddings
         
         logger.info("Generando embeddings...")
         config = self.config.get_embeddings_config()
@@ -198,7 +198,7 @@ class ExperimentRunner:
     
     def _run_topic_modeling(self, df: pd.DataFrame):
         """Ejecuta topic modeling"""
-        from ..topics import TopicModeller
+        from .topics import TopicModeller
         
         logger.info("Ejecutando topic modeling...")
         config = self.config.get_topic_modeling_config()
@@ -223,7 +223,7 @@ class ExperimentRunner:
     
     def _run_network_analysis(self, df: pd.DataFrame):
         """Ejecuta análisis de redes"""
-        from ..networks import SemanticNetworkAnalyzer
+        from .networks import SemanticNetworkAnalyzer
         
         logger.info("Ejecutando análisis de redes...")
         config = self.config.get('networks', {})
@@ -429,7 +429,7 @@ class HyperparameterOptimizer:
         logger.info("Iniciando optimización de embeddings...")
         
         def objective(trial):
-            from ..embeddings import Embeddings
+            from .embeddings import Embeddings
             
             # Hiperparámetros a optimizar
             vector_size = trial.suggest_int('vector_size', 50, 200, step=50)
@@ -468,7 +468,7 @@ class HyperparameterOptimizer:
         logger.info("Iniciando optimización de topic modeling...")
         
         def objective(trial):
-            from ..topics import TopicModeller
+            from .topics import TopicModeller
             
             n_topics = trial.suggest_int('n_topics', 5, 20)
             max_features = trial.suggest_int('max_features', 500, 2000, step=500)
