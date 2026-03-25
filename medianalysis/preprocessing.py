@@ -2,6 +2,20 @@
 Preprocesamiento de texto.
 """
 
+<<<<<<< HEAD
+import re, unidecode
+import pandas as pd
+
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
+
+class TextPreprocessor:
+    def __init__(self):
+        self.sw = stopwords.words('spanish')
+        self.snow = SnowballStemmer('spanish')
+
+    def clean_text(self, text: str):
+=======
 import re
 import pandas as pd
 
@@ -24,12 +38,22 @@ class TextPreprocessor:
         ])
         
     def clean_text(self, text: str) -> str:
+>>>>>>> main
         if not text: return ""
         text = str(text).lower()
         text = re.sub(r'http\S+|www\S+', '', text)
         text = re.sub(r'[^\w\s]', ' ', text)
         text = re.sub(r'\d+', '', text)
         text = re.sub(r'\s+', ' ', text)
+<<<<<<< HEAD
+        return text
+    
+    def tokenize(self, text: str):
+        tokens = text.split()
+        return [self.snow.stem(unidecode.unidecode(t)) for t in tokens if t not in self.sw and len(t) > 2]
+    
+    def process_df(self, df: pd.DataFrame, text_column: str = 'body'):
+=======
         return text.strip()
     
     def tokenize(self, text: str) -> list[str]:
@@ -37,6 +61,7 @@ class TextPreprocessor:
         return [t for t in tokens if t not in self.stopwords and len(t) > 2]
     
     def process_df(self, df: pd.DataFrame, text_column: str = 'body') -> pd.DataFrame:
+>>>>>>> main
         df = df.copy()
         df['texto_limpio'] = df[text_column].apply(self.clean_text)
         df['tokens'] = df['texto_limpio'].apply(self.tokenize)

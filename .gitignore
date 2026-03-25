@@ -4,6 +4,11 @@ __pycache__/
 *$py.class
 .temp/
 *.xlsx
+<<<<<<< HEAD
+experiments/
+*.csv
+=======
+>>>>>>> main
 
 # C extensions
 *.so

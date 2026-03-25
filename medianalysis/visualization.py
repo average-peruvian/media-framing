@@ -17,10 +17,15 @@ plt.rcParams['font.size'] = 10
 
 
 class Visualizer:
+<<<<<<< HEAD
+    def __init__(self, figsize = (12, 8)):
+        self.figsize = figsize
+=======
     def __init__(self, style: str = 'seaborn', figsize = (12, 8)):
         self.style = style
         self.figsize = figsize
         plt.style.use(style)
+>>>>>>> main
     
     def plot_topic_distribution(self, 
         topic_results, 
