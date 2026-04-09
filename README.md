@@ -124,10 +124,10 @@ scraper → [merge bloque 1] → judge → kb → [merge bloque 2]
                     factual/entities  factual/relations  factual/events
                              └─────────────────┼─────────────────┘
                                         factual/backfill
-
+              ┌────────────────────────────────┼─────────────────────────────────────────┐
               rhetoric/sentiment    rhetoric/framer    rhetoric/argument    rhetoric/topics
-              └──────────────────────────────────────────────────────────────────────────┘
-                                           [merge bloque 3]
+              └────────────────────────────────┼─────────────────────────────────────────┘
+                                             merge
 ```
 
 Los notebooks de rhetoric son independientes entre sí y de la fase factual — solo requieren `noticias_relevantes.csv`. Pueden correr en paralelo desde que el filtrado de relevancia esté completo.
