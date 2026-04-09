@@ -92,8 +92,6 @@ Ejemplo:
 
 def build_prompt(row):
     return f"""Noticia:
-Fecha: {row['publish_date']}
-Fuente: {row['media_name']}
 Texto: {row['body']}
 
 Extrae todas las entidades, relaciones y eventos presentes en el texto."""

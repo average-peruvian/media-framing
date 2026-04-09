@@ -23,7 +23,7 @@ class Sentimentalist(BaseWorker):
         logits = outputs.logits
         probabilities = torch.softmax(logits, dim=1).squeeze().tolist()
         predicted_class = torch.argmax(logits, dim=1).item()
-        if probabilities[predicted_class] <= threshold and predicted_class == 1:
+        if probabilities[predicted_class] <= self.threshold and predicted_class == 1:
             predicted_class = 0
 
         return {
