@@ -2,7 +2,7 @@ import os, json
 import pandas as pd
 from time import time
 
-from .distrib import BaseWorker
+from ..distrib import BaseWorker
 
 SYSTEM_PROMPT = """Eres un clasificador experto de noticias en español. Tu tarea es determinar si un artículo
 trata sobre un CONFLICTO SOCIAL o DENUNCIA UNA PROBLEMÁTICA SOCIAL hacia una EMPRESA MINERA.

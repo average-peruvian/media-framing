@@ -60,6 +60,7 @@ class BaseWorker:
         Comportamiento por defecto: skip silencioso.
         Sobreescribir para loggear o guardar fila de error.
         """
+        print(f"✗ {row['doc_id']}: {exc}")
         return None
 
     def run(self):

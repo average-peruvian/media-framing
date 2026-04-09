@@ -109,7 +109,7 @@ class ExperimentRunner:
         return df
     
     def _run_preprocessing(self, df: pd.DataFrame):
-        from .preprocessing import TextPreprocessor
+        from ..preprocessing import TextPreprocessor
         
         logger.info("Ejecutando preprocesamiento...")
         config = self.config.get_preprocessing_config()
